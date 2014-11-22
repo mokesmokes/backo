@@ -22,7 +22,7 @@ function Backoff(opts) {
   this.ms = opts.min || 100;
   this.max = opts.max || 10000;
   this.factor = opts.factor || 2;
-  this.jitter = opts.jitter || 0;
+  this.jitter = opts.jitter > 0 && opts.jitter <= 1 ? opts.jitter : 0;
   this.attempts = 0;
 }
 
@@ -35,7 +35,11 @@ function Backoff(opts) {
 
 Backoff.prototype.duration = function(){
   var ms = this.ms * Math.pow(this.factor, this.attempts++);
-  if (this.jitter) ms += Math.random() * this.jitter;
+  if (this.jitter) {
+    var rand =  Math.random();
+    var deviation = rand * this.jitter * ms;
+    ms = (Math.floor(rand * 10) & 1) == 0  ? ms - deviation : ms + deviation;
+  }
   return Math.min(ms, this.max) | 0;
 };
 
@@ -48,3 +52,34 @@ Backoff.prototype.duration = function(){
 Backoff.prototype.reset = function(){
   this.attempts = 0;
 };
+
+/**
+ * Set the minimum duration
+ *
+ * @api public
+ */
+
+Backoff.prototype.setMin = function(min){
+  this.ms = min;
+};
+
+/**
+ * Set the maximum duration
+ *
+ * @api public
+ */
+
+Backoff.prototype.setMax = function(max){
+  this.max = max;
+};
+
+/**
+ * Set the jitter
+ *
+ * @api public
+ */
+
+Backoff.prototype.setJitter = function(jitter){
+  this.jitter = jitter;
+};
+
