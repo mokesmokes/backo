@@ -1,6 +1,6 @@
 {
   "name": "backo2",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "repository": "mokesmokes/backo",
   "description": "simple backoff based on segmentio/backo",
   "keywords": [
