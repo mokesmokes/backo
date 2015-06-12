@@ -5,7 +5,7 @@
 ## Installation
 
 ```
-$ npm install backo
+$ npm install backo2
 ```
 
 ## Options
@@ -18,7 +18,7 @@ $ npm install backo
 ## Example
 
 ```js
-var Backoff = require('backo');
+var Backoff = require('backo2');
 var backoff = new Backoff({ min: 100, max: 20000 });
 
 setTimeout(function(){
