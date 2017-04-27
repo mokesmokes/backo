@@ -1,11 +1,11 @@
-# backo
+# backo2
 
-  Simple exponential backoff because the others seem to have weird abstractions.
+  Simple exponential backoff because the others seem to have weird abstractions. It's based on [backo](https://github.com/segmentio/backo). Difference is that this one exposes setter methods on the instance: `setMin`, `setMax` and `setJitter`.  
 
 ## Installation
 
 ```
-$ npm install backo
+$ npm install backo2
 ```
 
 ## Options
@@ -18,7 +18,7 @@ $ npm install backo
 ## Example
 
 ```js
-var Backoff = require('backo');
+var Backoff = require('backo2');
 var backoff = new Backoff({ min: 100, max: 20000 });
 
 setTimeout(function(){
