@@ -29,12 +29,17 @@ function Backoff(opts) {
 /**
  * Return the backoff duration.
  *
+ * @param {Object} [opts]
+ * @param {boolean} [opts.incrementAttempts] - if explicitly `false`,
+ * gets the next duration without incrementing `this.attempts`.
+ *
  * @return {Number}
  * @api public
  */
 
-Backoff.prototype.duration = function(){
-  var ms = this.ms * Math.pow(this.factor, this.attempts++);
+Backoff.prototype.duration = function(opts){
+  var ms = this.ms * Math.pow(this.factor, this.attempts);
+  if (!opts || opts.incrementAttempts !== false) this.attempts++;
   if (this.jitter) {
     var rand =  Math.random();
     var deviation = Math.floor(rand * this.jitter * ms);
